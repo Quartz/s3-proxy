@@ -6,11 +6,8 @@
 # Module directory 
 .terraform/  
 
-# Variable values for development 
-terraform.tfvars
-
-#
-aws.auto.tfvars
+# Secret vars
+secret.tfvars
 
 *.plan
 plan/
