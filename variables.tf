@@ -1,26 +1,13 @@
-# ====================================================== #
-# Access - set in aws.auto.vars
-# ====================================================== #
-
 variable "access_key" {}
+
+variable "region" {
+  default = "us-east-1"
+}
 
 variable "secret_key" {}
 
-# ====================================================== #
-# Environment specific, no defaults here please
-# ====================================================== #
+variable "tfstate_bucket" {}
 
-variable "environment" {
-  default = "dev"
-}
-
-##########################################################
-### DEFAULTS #############################################
-##########################################################
-# ====================================================== #
-# Regions etc...
-# ====================================================== #
-
-variable "region" {
-  default = "eu-west-1"
+variable "upload_bucket" {
+  default = "s3-proxy-api-uploads"
 }

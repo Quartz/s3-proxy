@@ -1,5 +1,5 @@
 resource "aws_api_gateway_method" "itemPutMethod" {
-  rest_api_id      = "${aws_api_gateway_rest_api.apiGateway.id}"
+  rest_api_id      = "${aws_api_gateway_rest_api.s3-proxy-api.id}"
   resource_id      = "${aws_api_gateway_resource.itemResource.id}"
   http_method      = "PUT"
   authorization    = "NONE"
@@ -10,14 +10,12 @@ resource "aws_api_gateway_method" "itemPutMethod" {
     "method.request.header.Content-Type"        = false
     "method.request.header.x-amz-meta-fileinfo" = false
 
-    "method.request.path.bucket" = true
-    "method.request.path.folder" = true
-    "method.request.path.item"   = true
+    "method.request.path.key" = true
   }
 }
 
 resource "aws_api_gateway_method" "itemOptionsMethod" {
-  rest_api_id   = "${aws_api_gateway_rest_api.apiGateway.id}"
+  rest_api_id   = "${aws_api_gateway_rest_api.s3-proxy-api.id}"
   resource_id   = "${aws_api_gateway_resource.itemResource.id}"
   http_method   = "OPTIONS"
   authorization = "NONE"
@@ -28,15 +26,13 @@ resource "aws_api_gateway_method" "itemOptionsMethod" {
 }
 
 resource "aws_api_gateway_method" "itemGetMethod" {
-  rest_api_id      = "${aws_api_gateway_rest_api.apiGateway.id}"
+  rest_api_id      = "${aws_api_gateway_rest_api.s3-proxy-api.id}"
   resource_id      = "${aws_api_gateway_resource.itemResource.id}"
   http_method      = "GET"
   authorization    = "NONE"
   api_key_required = true
 
   request_parameters = {
-    "method.request.path.bucket" = true
-    "method.request.path.folder" = true
-    "method.request.path.item"   = true
+    "method.request.path.key" = true
   }
 }

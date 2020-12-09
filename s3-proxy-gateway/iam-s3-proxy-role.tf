@@ -1,5 +1,5 @@
 resource "aws_iam_role" "s3_proxy_role" {
-  name               = "${var.environment}-s3-proxy-role-example"
+  name               = "s3-proxy-api-role"
   path               = "/"
   assume_role_policy = "${data.aws_iam_policy_document.s3_proxy_policy.json}"
 }
@@ -34,12 +34,11 @@ resource "aws_iam_role_policy_attachment" "s3_proxy_role_api_gateway_attachment"
 }
 
 resource "aws_s3_bucket" "file_upload_bucket" {
-  bucket = "file-upload-bucket-${var.environment}"
+  bucket = "${var.upload_bucket}"
   acl    = "private"
 
   tags {
-    Name        = "file-upload-bucket-${var.environment}"
-    Environment = "${var.environment}"
+    Name        = "s3-proxy-api"
   }
 
   depends_on = [
@@ -48,9 +47,9 @@ resource "aws_s3_bucket" "file_upload_bucket" {
 }
 
 resource "aws_iam_policy" "s3_file_upload_policy" {
-  name        = "${var.environment}-github-s3-file-upload-policy"
+  name        = "s3-proxy-api-file-upload-policy"
   path        = "/"
-  description = "${var.environment} s3 file upload policy"
+  description = "S3 proxy API file upload policy"
 
   policy = <<EOF
 {
@@ -63,7 +62,7 @@ resource "aws_iam_policy" "s3_file_upload_policy" {
             ],
       "Effect": "Allow",
       "Resource": [
-                "arn:aws:s3:::file-upload-bucket-${var.environment}/*" 
+                "arn:aws:s3:::${aws_s3_bucket.file_upload_bucket.id}/*" 
             ]
     }
   ]
