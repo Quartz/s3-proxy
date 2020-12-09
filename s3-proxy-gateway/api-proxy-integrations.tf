@@ -8,12 +8,12 @@ resource "aws_api_gateway_integration" "itemPutMethod-ApiProxyIntegration" {
   credentials             = aws_iam_role.s3_proxy_role.arn
   uri                     = "arn:aws:apigateway:${var.region}:s3:path/${aws_s3_bucket.file_upload_bucket.id}/{key}"
 
-  request_parameters {
+  request_parameters = {
     "integration.request.header.x-amz-meta-fileinfo" = "method.request.header.x-amz-meta-fileinfo"
     "integration.request.header.Accept"              = "method.request.header.Accept"
     "integration.request.header.Content-Type"        = "method.request.header.Content-Type"
 
-    "integration.request.path.key"   = "method.request.path.key"
+    "integration.request.path.key" = "method.request.path.key"
   }
 }
 
@@ -27,7 +27,7 @@ resource "aws_api_gateway_integration" "itemGetMethod-ApiProxyIntegration" {
   credentials             = aws_iam_role.s3_proxy_role.arn
   uri                     = "arn:aws:apigateway:${var.region}:s3:path/${aws_s3_bucket.file_upload_bucket.id}/{key}"
 
-  request_parameters {
+  request_parameters = {
     "integration.request.path.key"   = "method.request.path.key"
   }
 }
@@ -41,7 +41,7 @@ resource "aws_api_gateway_integration" "itemOptionsMethod-ApiProxyIntegration" {
     aws_api_gateway_method.itemOptionsMethod,
   ]
 
-  request_templates {
+  request_templates = {
     "application/json" = <<EOF
         {
         "statusCode" : 200
