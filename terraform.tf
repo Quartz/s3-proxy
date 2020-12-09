@@ -4,9 +4,9 @@ provider "aws" {
 
 terraform {
   backend "s3" {
-    bucket = var.tfstate_bucket
+    bucket = "prod-us-newspicks-tf-state"
     key    = "s3-proxy-api/terraform.tfstate"
-    region = var.region
+    region = "us-east-1"
   }
 }
 
