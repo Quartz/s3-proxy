@@ -28,11 +28,6 @@ resource "aws_api_gateway_usage_plan" "s3-proxy-usage-plan" {
 
 resource "aws_api_gateway_api_key" "s3-proxy-api-key" {
   name = "s3-proxy-api-key"
-
-  stage_key {
-    rest_api_id = aws_api_gateway_rest_api.s3-proxy-api.id
-    stage_name  = aws_api_gateway_deployment.s3-proxy-api-deployment.stage_name
-  }
 }
 
 resource "aws_api_gateway_usage_plan_key" "s3-proxy-usage-plan-key" {

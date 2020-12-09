@@ -10,7 +10,7 @@ variable "upload_bucket" {}
 
 variable "supported_binary_media_types" {
   description = "Supported file types"
-  type        = "list"
+  type        = list
 
   default = [
     "application/json",
