@@ -1,7 +1,7 @@
 resource "aws_iam_role" "s3_proxy_role" {
   name               = "s3-proxy-api-role"
   path               = "/"
-  assume_role_policy = "${data.aws_iam_policy_document.s3_proxy_policy.json}"
+  assume_role_policy = data.aws_iam_policy_document.s3_proxy_policy.json
 }
 
 data "aws_iam_policy_document" "s3_proxy_policy" {
@@ -20,21 +20,21 @@ resource "aws_iam_role_policy_attachment" "s3_proxy_role_file_upload_attachment"
     "aws_iam_policy.s3_file_upload_policy",
   ]
 
-  role       = "${aws_iam_role.s3_proxy_role.name}"
-  policy_arn = "${aws_iam_policy.s3_file_upload_policy.arn}"
+  role       = aws_iam_role.s3_proxy_role.name
+  policy_arn = aws_iam_policy.s3_file_upload_policy.arn
 }
 
 resource "aws_iam_role_policy_attachment" "s3_proxy_role_api_gateway_attachment" {
   depends_on = [
-    "aws_iam_policy.s3_file_upload_policy",
+    aws_iam_policy.s3_file_upload_policy,
   ]
 
-  role       = "${aws_iam_role.s3_proxy_role.name}"
+  role       = aws_iam_role.s3_proxy_role.name
   policy_arn = "arn:aws:iam::aws:policy/AmazonAPIGatewayInvokeFullAccess"
 }
 
 resource "aws_s3_bucket" "file_upload_bucket" {
-  bucket = "${var.upload_bucket}"
+  bucket = var.upload_bucket
   acl    = "private"
 
   tags {
@@ -42,7 +42,7 @@ resource "aws_s3_bucket" "file_upload_bucket" {
   }
 
   depends_on = [
-    "aws_iam_policy.s3_file_upload_policy",
+    aws_iam_policy.s3_file_upload_policy,
   ]
 }
 

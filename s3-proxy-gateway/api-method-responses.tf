@@ -1,7 +1,7 @@
 resource "aws_api_gateway_method_response" "itemPutMethod200Response" {
-  rest_api_id = "${aws_api_gateway_rest_api.s3-proxy-api.id}"
-  resource_id = "${aws_api_gateway_resource.itemResource.id}"
-  http_method = "${aws_api_gateway_method.itemPutMethod.http_method}"
+  rest_api_id = aws_api_gateway_rest_api.s3-proxy-api.id
+  resource_id = aws_api_gateway_resource.itemResource.id
+  http_method = aws_api_gateway_method.itemPutMethod.http_method
   status_code = "200"
 
   response_models {
@@ -12,13 +12,15 @@ resource "aws_api_gateway_method_response" "itemPutMethod200Response" {
     "method.response.header.Access-Control-Allow-Origin" = true
   }
 
-  depends_on = ["aws_api_gateway_method.itemPutMethod"]
+  depends_on = [
+    aws_api_gateway_method.itemPutMethod,
+  ]
 }
 
 resource "aws_api_gateway_method_response" "itemOptionsMethod200Response" {
-  rest_api_id = "${aws_api_gateway_rest_api.s3-proxy-api.id}"
-  resource_id = "${aws_api_gateway_resource.itemResource.id}"
-  http_method = "${aws_api_gateway_method.itemOptionsMethod.http_method}"
+  rest_api_id = aws_api_gateway_rest_api.s3-proxy-api.id
+  resource_id = aws_api_gateway_resource.itemResource.id
+  http_method = aws_api_gateway_method.itemOptionsMethod.http_method
   status_code = "200"
 
   response_models {
@@ -31,13 +33,15 @@ resource "aws_api_gateway_method_response" "itemOptionsMethod200Response" {
     "method.response.header.Access-Control-Allow-Origin"  = true
   }
 
-  depends_on = ["aws_api_gateway_method.itemOptionsMethod"]
+  depends_on = [
+    aws_api_gateway_method.itemOptionsMethod,
+  ]
 }
 
 resource "aws_api_gateway_method_response" "itemGetMethod200Response" {
-  rest_api_id = "${aws_api_gateway_rest_api.s3-proxy-api.id}"
-  resource_id = "${aws_api_gateway_resource.itemResource.id}"
-  http_method = "${aws_api_gateway_method.itemGetMethod.http_method}"
+  rest_api_id = aws_api_gateway_rest_api.s3-proxy-api.id
+  resource_id = aws_api_gateway_resource.itemResource.id
+  http_method = aws_api_gateway_method.itemGetMethod.http_method
   status_code = "200"
 
   response_models {
@@ -48,5 +52,7 @@ resource "aws_api_gateway_method_response" "itemGetMethod200Response" {
     "method.response.header.Access-Control-Allow-Origin" = true
   }
 
-  depends_on = ["aws_api_gateway_method.itemGetMethod"]
+  depends_on = [
+    aws_api_gateway_method.itemGetMethod,
+  ]
 }

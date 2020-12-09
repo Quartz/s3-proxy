@@ -1,6 +1,6 @@
 resource "aws_api_gateway_method" "itemPutMethod" {
-  rest_api_id      = "${aws_api_gateway_rest_api.s3-proxy-api.id}"
-  resource_id      = "${aws_api_gateway_resource.itemResource.id}"
+  rest_api_id      = aws_api_gateway_rest_api.s3-proxy-api.id
+  resource_id      = aws_api_gateway_resource.itemResource.id
   http_method      = "PUT"
   authorization    = "NONE"
   api_key_required = true
@@ -15,8 +15,8 @@ resource "aws_api_gateway_method" "itemPutMethod" {
 }
 
 resource "aws_api_gateway_method" "itemOptionsMethod" {
-  rest_api_id   = "${aws_api_gateway_rest_api.s3-proxy-api.id}"
-  resource_id   = "${aws_api_gateway_resource.itemResource.id}"
+  rest_api_id   = aws_api_gateway_rest_api.s3-proxy-api.id
+  resource_id   = aws_api_gateway_resource.itemResource.id
   http_method   = "OPTIONS"
   authorization = "NONE"
 
@@ -26,8 +26,8 @@ resource "aws_api_gateway_method" "itemOptionsMethod" {
 }
 
 resource "aws_api_gateway_method" "itemGetMethod" {
-  rest_api_id      = "${aws_api_gateway_rest_api.s3-proxy-api.id}"
-  resource_id      = "${aws_api_gateway_resource.itemResource.id}"
+  rest_api_id      = aws_api_gateway_rest_api.s3-proxy-api.id
+  resource_id      = aws_api_gateway_resource.itemResource.id
   http_method      = "GET"
   authorization    = "NONE"
   api_key_required = true
