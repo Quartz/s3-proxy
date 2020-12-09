@@ -16,9 +16,9 @@ plan: init
 	@echo "-- Terraform Plan --"
 	$(tf) plan -lock-timeout=180s -out=plan.out -var-file="secret.tfvars"
 
-apply: pull plan
+apply: plan
 	@echo "-- Terraform Apply --"
-	$(tf) apply -lock-timeout=180s plan.out -var-file="secret.tfvars"
+	$(tf) apply -lock-timeout=180s plan.out
 
 destroy:
 	@echo "-- Terraform destroy --"

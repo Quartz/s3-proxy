@@ -12,6 +12,11 @@ resource "aws_api_gateway_integration_response" "itemPutMethod-IntegrationRespon
   response_parameters = {
     "method.response.header.Access-Control-Allow-Origin" = "'*'"
   }
+
+  depends_on = [
+    aws_api_gateway_method_response.itemPutMethod200Response,
+    aws_api_gateway_integration.itemPutMethod-ApiProxyIntegration,
+  ]
 }
 
 resource "aws_api_gateway_integration_response" "itemGetMethod-IntegrationResponse" {
@@ -28,12 +33,18 @@ resource "aws_api_gateway_integration_response" "itemGetMethod-IntegrationRespon
   response_parameters = {
     "method.response.header.Access-Control-Allow-Origin" = "'*'"
   }
+
+  depends_on = [
+    aws_api_gateway_method_response.itemGetMethod200Response,
+    aws_api_gateway_integration.itemGetMethod-ApiProxyIntegration,
+  ]
 }
 
 resource "aws_api_gateway_integration_response" "itemOptionsMethod-IntegrationResponse" {
   rest_api_id = aws_api_gateway_rest_api.s3-proxy-api.id
   resource_id = aws_api_gateway_resource.itemResource.id
   http_method = aws_api_gateway_method.itemOptionsMethod.http_method
+
   status_code = aws_api_gateway_method_response.itemOptionsMethod200Response.status_code
 
   response_parameters = {
